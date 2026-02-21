@@ -6,11 +6,17 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>How are you feeling today?</h1>
-    <h2>Click a mood!</h2>
-    <a href="/add/happy"><button>😀 Happy</button></a>
-    <a href="/add/sad"><button>😢 Sad</button></a>
-    <a href="/add/angry"><button>😡 Angry</button></a>
-    <a href="add/tired"><button>😴 Tired</button></a>
+    <h1>{{ greeting }}</h1>
+    <h2>You've been show so many emotions for the past few days:</h2>
+
+    <ul>
+        {% for mood in moods %}
+        <li>{{mood[0]}}</li>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a class="btn" href="/add">Record your emotion for today!</a>
+   
 </body>
 </html>
