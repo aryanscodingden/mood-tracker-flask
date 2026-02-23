@@ -12,11 +12,14 @@
 
     <h2>Click a mood:</h2>
 
-    <a href="/add/Happy"><button>😀 Happy</button></a>
-    <a href="/add/Sad"><button>😢 Sad</button></a>
-    <a href="/add/Angry"><button>😡 Angry</button></a>
-    <a href="/add/Tired"><button>😴 Tired</button></a>
-
+    <div class="mood-container">
+        <form method="POST" style="display: contents;">
+            <button type="submit" name="mood" value="Happy" class="mood-btn">😊 Happy</button>
+            <button type="submit" name="mood" value="Sad" class="mood-btn">😢 Sad</button>
+            <button type="submit" name="mood" value="Angry" class="mood-btn">😠 Angry</button>
+            <button type="submit" name="mood" value="Tired" class="mood-btn">😴 Tired</button>
+        </form>
+    </div>
     <hr>
     <br><br>
     <a href="/">Back to home</a>

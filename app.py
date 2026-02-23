@@ -40,10 +40,29 @@ def add():
         db = get_db()
         db.execute("INSERT INTO moods (mood, date) VALUES (?,?)", (mood, date))
         db.commit()
-        return redirect("/")
+        return redirect('/')
 
     return render_template("add.html")
 
+@app.route("/calender")
+def calendar():
+    db = get_db()
+    now = datetime.now()
+    year = request.args.get('year', now.year, type=int)
+    month = request.args.get('month', now.month, type=int)
+
+    moods = db.execute(
+        "SELECT date, mood FROM moods WHERE shrfttime('%Y', date) = ? AND strfttime('%m', date) = ?",
+        (str(year), f"{month:02d}")
+    ).fetchall()
+
+    mood_dict = {mood[0]: mood[1] for mood in moods}
+
+    first_day_weekday, num_days = monthrange(year, month)
+    month_names = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December']
+
+    return render_template("calendar.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
