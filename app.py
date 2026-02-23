@@ -62,7 +62,7 @@ def calendar():
     month_names = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December']
 
-    return render_template("calendar.html")
+    return render_template("calender.html")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
