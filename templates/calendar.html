@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood calendar</title>
+    <title>Mood Calendar - Slushies</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
     <div class="calendar-container">
-        <div class="calendar-header"></div>
-        <a href="/calendar?year={{ year }}&month={{ month - 1 if month > 1 else 12 }}" class="nav-btn">←</a>
-        <h1>{{ month_name }} {{ year }}</h1>
+        <div class="calendar-header">
+            <a href="/calendar?year={{ year }}&month={{ month - 1 if month > 1 else 12 }}" class="nav-btn">←</a>
+            <h1>{{ month_name }} {{ year }}</h1>
             <a href="/calendar?year={{ year }}&month={{ month + 1 if month < 12 else 1 }}" class="nav-btn">→</a>
-    </div>
+        </div>
 
-    <div class="calendar-grid">
-        <div class="calendar-day-header">Sun</div>
-        <div class="calendar-day-header">Mon</div>
-        <div class="calendar-day-header">Tue</div>
-        <div class="calendar-day-header">Wed</div>
-        <div class="calendar-day-header">Thu</div>
-        <div class="calendar-day-header">Fri</div>
-        <div class="calendar-day-header">Sat</div>
+        <div class="calendar-grid">
+            <div class="calendar-day-header">Sun</div>
+            <div class="calendar-day-header">Mon</div>
+            <div class="calendar-day-header">Tue</div>
+            <div class="calendar-day-header">Wed</div>
+            <div class="calendar-day-header">Thu</div>
+            <div class="calendar-day-header">Fri</div>
+            <div class="calendar-day-header">Sat</div>
 
-        {% for i in range(first_day_weekday) %}
+            {% for i in range(first_day_weekday) %}
                 <div class="calendar-cell empty"></div>
             {% endfor %}
 
@@ -43,7 +43,10 @@
                         <div class="mood-label">{{ mood }}</div>
                     {% endif %}
                 </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="back-link">← Back to home</a>
     </div>
-    
 </body>
 </html>

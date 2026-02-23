@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
+from calendar import monthrange
 
 app = Flask(__name__)
 
@@ -44,7 +45,7 @@ def add():
 
     return render_template("add.html")
 
-@app.route("/calender")
+@app.route("/calendar")
 def calendar():
     db = get_db()
     now = datetime.now()
@@ -52,7 +53,7 @@ def calendar():
     month = request.args.get('month', now.month, type=int)
 
     moods = db.execute(
-        "SELECT date, mood FROM moods WHERE shrfttime('%Y', date) = ? AND strfttime('%m', date) = ?",
+        "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
         (str(year), f"{month:02d}")
     ).fetchall()
 
@@ -62,7 +63,13 @@ def calendar():
     month_names = ['January', 'February', 'March', 'April', 'May', 'June',
                    'July', 'August', 'September', 'October', 'November', 'December']
 
-    return render_template("calender.html")
+    return render_template("calendar.html",
+                         mood_dict=mood_dict,
+                         year=year,
+                         month=month,
+                         month_name=month_names[month-1],
+                         first_day_weekday=first_day_weekday,
+                         num_days=num_days)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

@@ -110,3 +110,135 @@ li:hover {
     border-color: #3F3F46;
     background: #1F2023;
 }
+
+.calendar-container {
+    max-width: 900px;
+    width: 100%;
+    padding: 24px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.calendar-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.nav-btn {
+    background: #17181A;
+    border: 1px solid #24262B;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #F5F5F5;
+    text-decoration: none;
+    font-size: 20px;
+    transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+    border-color: #3F3F46;
+    background: #1F2023;
+}
+
+.calendar-cell:hover:not(.empty) {
+    border-color: #3F3F46;
+    transform: translateY(-2px);
+}
+
+.day-number {
+    font-size: 14px;
+    color: #A1A1AA;
+    margin-bottom: 8px;
+    align-self: flex-start;
+}
+
+.mood-emoji {
+    font-size: 32px;
+    margin: 8px 0;
+}
+
+.mood-label {
+    font-size: 11px;
+    color: #6B7280;
+    margin-top: 4px;
+}
+.calendar-day-header {
+    text-align: center;
+    font-size: 12px;
+    color: #A1A1AA;
+    font-weight: 500;
+    padding: 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.calendar-cell {
+    background: #17181A;
+    border: 1px solid #24262B;
+    border-radius: 12px;
+    padding: 12px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.2s ease;
+}
+
+.calendar-cell.empty {
+    background: transparent;
+    border: none;
+}
+
+.calendar-cell.has-mood {
+    border-color: #3F3F46;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.back-link {
+    color: #A1A1AA;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    display: inline-block;
+    margin-top: 24px;
+}
+
+.back-link:hover {
+    color: #F5F5F5;
+}
+
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-secondary {
+    background: #17181A;
+    border: 1px solid #24262B;
+    color: #F5F5F5;
+}
+
+.btn-secondary:hover {
+    border-color: #3F3F46;
+    background: #1F2023;
+}
