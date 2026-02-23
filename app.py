@@ -30,7 +30,29 @@ def home():
     else:
         greeting = "Good evening"
 
-    return render_template("home.html", moods=moods, greeting=greeting)
+    now = datetime.now()
+    year = now.year
+    month = now.month
+
+    month_moods = db.execute(
+        "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
+        (str(year), f"{month:02d}")
+    ).fetchall()
+
+    mood_dict = {mood[0]: mood[1] for mood in month_moods}
+    first_day_weekday, num_days = monthrange(year, month)
+    month_names = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December']
+
+    return render_template("home.html", 
+                         moods=moods, 
+                         greeting=greeting,
+                         mood_dict=mood_dict,
+                         year=year,
+                         month=month,
+                         month_name=month_names[month-1],
+                         first_day_weekday=first_day_weekday,
+                         num_days=num_days)
 
 @app.route("/add", methods = ["GET", "POST"])
 def add():

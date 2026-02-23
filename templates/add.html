@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add your mood</title>
+    <title>Add Mood</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-  
-    <h1>How are you feeling today?</h1>
+    <div class="home-container">
+        <h1>How are you feeling?</h1>
+        <h2>Select a mood</h2>
 
-    <h2>Click a mood:</h2>
+        <div class="mood-container">
+            <form method="POST" style="display: contents;">
+                <button type="submit" name="mood" value="Happy" class="mood-btn">😊 Happy</button>
+                <button type="submit" name="mood" value="Sad" class="mood-btn">😢 Sad</button>
+                <button type="submit" name="mood" value="Angry" class="mood-btn">😠 Angry</button>
+                <button type="submit" name="mood" value="Tired" class="mood-btn">😴 Tired</button>
+            </form>
+        </div>
 
-    <div class="mood-container">
-        <form method="POST" style="display: contents;">
-            <button type="submit" name="mood" value="Happy" class="mood-btn">😊 Happy</button>
-            <button type="submit" name="mood" value="Sad" class="mood-btn">😢 Sad</button>
-            <button type="submit" name="mood" value="Angry" class="mood-btn">😠 Angry</button>
-            <button type="submit" name="mood" value="Tired" class="mood-btn">😴 Tired</button>
-        </form>
+        <a href="/" class="back-link">← Back</a>
     </div>
-    <hr>
-    <br><br>
-    <a href="/">Back to home</a>
 </body>
 </html>
