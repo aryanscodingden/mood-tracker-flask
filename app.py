@@ -19,40 +19,40 @@ with get_db() as db:
 
 @app.route("/")
 def home():
-    db = get_db()
-    moods = db.execute("SELECT mood FROM moods ORDER BY id DESC LIMIT 5").fetchall()
+    with get_db() as db:
+        moods = db.execute("SELECT mood FROM moods ORDER BY id DESC LIMIT 5").fetchall()
 
-    hour = datetime.now().hour
-    if hour < 12:
-        greeting = "Good morning"
-    elif hour < 18:
-        greeting = "Good afternoon"
-    else:
-        greeting = "Good evening"
+        hour = datetime.now().hour
+        if hour < 12:
+            greeting = "Good morning"
+        elif hour < 18:
+            greeting = "Good afternoon"
+        else:
+            greeting = "Good evening"
 
-    now = datetime.now()
-    year = now.year
-    month = now.month
+        now = datetime.now()
+        year = now.year
+        month = now.month
 
-    month_moods = db.execute(
-        "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
-        (str(year), f"{month:02d}")
-    ).fetchall()
+        month_moods = db.execute(
+            "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
+            (str(year), f"{month:02d}")
+        ).fetchall()
 
-    mood_dict = {mood[0]: mood[1] for mood in month_moods}
-    first_day_weekday, num_days = monthrange(year, month)
-    month_names = ['January', 'February', 'March', 'April', 'May', 'June',
-                   'July', 'August', 'September', 'October', 'November', 'December']
+        mood_dict = {mood[0]: mood[1] for mood in month_moods}
+        first_day_weekday, num_days = monthrange(year, month)
+        month_names = ['January', 'February', 'March', 'April', 'May', 'June',
+                       'July', 'August', 'September', 'October', 'November', 'December']
 
-    return render_template("home.html", 
-                         moods=moods, 
-                         greeting=greeting,
-                         mood_dict=mood_dict,
-                         year=year,
-                         month=month,
-                         month_name=month_names[month-1],
-                         first_day_weekday=first_day_weekday,
-                         num_days=num_days)
+        return render_template("home.html", 
+                             moods=moods, 
+                             greeting=greeting,
+                             mood_dict=mood_dict,
+                             year=year,
+                             month=month,
+                             month_name=month_names[month-1],
+                             first_day_weekday=first_day_weekday,
+                             num_days=num_days)
 
 @app.route("/add", methods = ["GET", "POST"])
 def add():
@@ -60,38 +60,38 @@ def add():
         mood = request.form["mood"]
         date = datetime.now().strftime("%Y-%m-%d")
 
-        db = get_db()
-        db.execute("INSERT INTO moods (mood, date) VALUES (?,?)", (mood, date))
-        db.commit()
+        with get_db() as db:
+            db.execute("INSERT INTO moods (mood, date) VALUES (?,?)", (mood, date))
+            db.commit()
         return redirect('/')
 
     return render_template("add.html")
 
 @app.route("/calendar")
 def calendar():
-    db = get_db()
-    now = datetime.now()
-    year = request.args.get('year', now.year, type=int)
-    month = request.args.get('month', now.month, type=int)
+    with get_db() as db:
+        now = datetime.now()
+        year = request.args.get('year', now.year, type=int)
+        month = request.args.get('month', now.month, type=int)
 
-    moods = db.execute(
-        "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
-        (str(year), f"{month:02d}")
-    ).fetchall()
+        moods = db.execute(
+            "SELECT date, mood FROM moods WHERE strftime('%Y', date) = ? AND strftime('%m', date) = ?",
+            (str(year), f"{month:02d}")
+        ).fetchall()
 
-    mood_dict = {mood[0]: mood[1] for mood in moods}
+        mood_dict = {mood[0]: mood[1] for mood in moods}
 
-    first_day_weekday, num_days = monthrange(year, month)
-    month_names = ['January', 'February', 'March', 'April', 'May', 'June',
-                   'July', 'August', 'September', 'October', 'November', 'December']
+        first_day_weekday, num_days = monthrange(year, month)
+        month_names = ['January', 'February', 'March', 'April', 'May', 'June',
+                       'July', 'August', 'September', 'October', 'November', 'December']
 
-    return render_template("calendar.html",
-                         mood_dict=mood_dict,
-                         year=year,
-                         month=month,
-                         month_name=month_names[month-1],
-                         first_day_weekday=first_day_weekday,
-                         num_days=num_days)
+        return render_template("calendar.html",
+                             mood_dict=mood_dict,
+                             year=year,
+                             month=month,
+                             month_name=month_names[month-1],
+                             first_day_weekday=first_day_weekday,
+                             num_days=num_days)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
