@@ -2,23 +2,30 @@ from flask import Flask, render_template, request, redirect
 import sqlite3
 from datetime import datetime
 from calendar import monthrange
+import os
 
 app = Flask(__name__)
 
-def get_db():
-    return sqlite3.connect("moods.db")
+DB_PATH = os.path.join('/tmp', 'moods.db') if os.environ.get('VERCEL') else 'moods.db'
 
-with get_db() as db:
-    db.execute("""
-        CREATE TABLE IF NOT EXISTS moods (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        mood TEXT,
-        date TEXT
-        )
-    """)
+def get_db():
+    return sqlite3.connect(DB_PATH)
+
+def init_db():
+    with get_db() as db:
+        db.execute("""
+            CREATE TABLE IF NOT EXISTS moods (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            mood TEXT,
+            date TEXT
+            )
+        """)
+
+init_db()
 
 @app.route("/")
 def home():
+    init_db()
     with get_db() as db:
         moods = db.execute("SELECT mood FROM moods ORDER BY id DESC LIMIT 5").fetchall()
 
@@ -57,6 +64,7 @@ def home():
 @app.route("/add", methods = ["GET", "POST"])
 def add():
     if request.method == "POST":
+        init_db()
         mood = request.form["mood"]
         date = datetime.now().strftime("%Y-%m-%d")
 
@@ -69,6 +77,7 @@ def add():
 
 @app.route("/calendar")
 def calendar():
+    init_db()
     with get_db() as db:
         now = datetime.now()
         year = request.args.get('year', now.year, type=int)
