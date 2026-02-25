@@ -100,7 +100,7 @@ h2 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 16px;
     color: #A1A1AA;
     border-radius: 6px;
     transition: all 0.2s ease;
@@ -140,6 +140,7 @@ h2 {
     font-weight: 500;
     text-align: center;
     transition: all 0.2s ease;
+    margin-top: 12px;
 }
 
 .btn:hover {
@@ -184,4 +185,135 @@ h2 {
 
 .back-link:hover {
     color: #F5F5F5;
+}
+
+/* Stats Page Styles */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.stat-card {
+    background: #17181A;
+    border: 1px solid #24262B;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: #3F3F46;
+}
+
+.stat-card h2 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #F5F5F5;
+    text-transform: none;
+    letter-spacing: -0.02em;
+}
+
+.stat-card p {
+    font-size: 13px;
+    color: #A1A1AA;
+    font-weight: 500;
+}
+
+.mood-breakdown {
+    background: #17181A;
+    border: 1px solid #24262B;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.mood-breakdown h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #F5F5F5;
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+.mood-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.mood-label {
+    font-size: 14px;
+    color: #F5F5F5;
+    min-width: 80px;
+    font-weight: 500;
+}
+
+.bar {
+    flex: 1;
+    height: 32px;
+    background: #0F0F10;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    background: #F5F5F5;
+    transition: width 0.5s ease;
+    border-radius: 8px;
+}
+
+.mood-count {
+    font-size: 14px;
+    color: #A1A1AA;
+    min-width: 40px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.recent-trend {
+    background: #17181A;
+    border: 1px solid #24262B;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    max-width: 500px;
+    width: 100%;
+}
+
+.recent-trend h2 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #F5F5F5;
+    text-transform: none;
+    letter-spacing: -0.01em;
+}
+
+.recent-trend ul {
+    list-style: none;
+}
+
+.recent-trend li {
+    font-size: 14px;
+    color: #F5F5F5;
+    padding: 12px;
+    background: #0F0F10;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.recent-trend li:last-child {
+    margin-bottom: 0;
 }

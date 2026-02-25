@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="home-container">
+        <h1>📊 Your Mood Stats</h1>
+
+        <div class="stats-container">
+            <div class="stat-card">
+                <h2>{{ total_moods }}</h2>
+                <p>Total Entries</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>🔥 {{ streak }}</h2>
+                <p>Day Streak</p>
+            </div>
+        </div>
+
+        <div class="mood-breakdown">
+            <h2>Mood Breakdown</h2>
+            {% for mood, count in mood_counts %}
+            <div class="mood-bar">
+                <span class="mood-label">{{ mood }}</span>
+                <div class="bar">
+                    <div class="bar-fill" style="width: {{ (count / total_moods * 100) if total_moods > 0 else 0 }}%;"></div>
+                </div>
+                <span class="mood-count">{{ count }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+    <div class="recent-trend">
+        <h2>Last 7 Days</h2>
+        <ul>
+            {% for date, mood in recent_moods %}
+            <li>{{ date }}: {{ mood }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="/" class="back-link">← Back to Home</a>
+    </div>
+</body>
+</html>

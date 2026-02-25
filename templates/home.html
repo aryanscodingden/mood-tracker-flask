@@ -45,15 +45,14 @@
                 {% set date_str = "%04d-%02d-%02d"|format(year, month, day) %}
                 {% set mood = mood_dict.get(date_str) %}
                 <div class="cal-cell {% if mood %}has-mood{% endif %}">
-                    <div class="cal-day">{{ day }}</div>
                     {% if mood %}
-                    <div class="cal-emoji">
                         {% if mood == 'Happy' %}😊
                         {% elif mood == 'Sad' %}😢
                         {% elif mood == 'Angry' %}😠
                         {% elif mood == 'Tired' %}😴
                         {% endif %}
-                    </div>
+                    {% else %}
+                    <div class="cal-day">{{ day }}</div>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -61,6 +60,7 @@
         </div>
 
         <a class="btn" href="/add">+ Add mood</a>
+        <a class="btn" href="/stats">View Stats</a>
     </div>
 </body>
 </html>

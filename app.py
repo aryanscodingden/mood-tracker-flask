@@ -3,6 +3,7 @@ import sqlite3
 from datetime import datetime
 from calendar import monthrange
 import os
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -102,5 +103,38 @@ def calendar():
                              first_day_weekday=first_day_weekday,
                              num_days=num_days)
 
+@app.route("/stats")
+def stats():
+    init_db()
+    with get_db() as db:
+        total_moods = db.execute("SELECT COUNT(*) FROM moods").fetchone()[0]
+
+        mood_counts = db.execute(
+            "SELECT mood, COUNT(*) as count from moods GROUP BY mood ORDER BY count DESC"
+        ).fetchall()
+
+        all_dates = db.execute("SELECT DISTINCT date FROM moods ORDER BY date DESC").fetchall()
+        streak = 0 
+        if all_dates:
+            current_date = datetime.now().date()
+            for date_row in all_dates:
+                date_obj = datetime.strptime(date_row[0], "%Y-%m-%d").date()
+                if date_obj == current_date or (streak > 0 and date_obj == current_date - timedelta(days=streak)):
+                    streak += 1 
+                    current_date = date_obj
+                else:
+                    break
+
+        recent_moods = db.execute(
+            "SELECT date, mood FROM moods WHERE date >= date('now', '-7 days') ORDER BY date DESC"
+        ).fetchall()
+                
+        return render_template("stats.html",
+                total_moods=total_moods,
+                mood_counts=mood_counts,
+                streak=streak,
+                recent_moods=recent_moods)
+
+            
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
