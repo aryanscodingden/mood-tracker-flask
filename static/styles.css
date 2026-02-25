@@ -312,8 +312,61 @@ h2 {
     border-radius: 8px;
     margin-bottom: 8px;
     font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .recent-trend li:last-child {
     margin-bottom: 0;
+}
+
+.calendar-day {
+    position: relative;
+}
+
+.has-mood {
+    cursor: pointer;
+}
+
+.delete-form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.calendar-day:hover .delete-form {
+    opacity: 1;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.delete-btn-stats {
+    background: #DC2626;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.delete-btn-stats:hover {
+    background: #B91C1C;
 }

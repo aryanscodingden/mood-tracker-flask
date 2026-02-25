@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="home-container">
-        <h1>📊 Your Mood Stats</h1>
+        <h1>Your Mood Stats</h1>
 
         <div class="stats-container">
             <div class="stat-card">
@@ -17,7 +17,7 @@
             </div>
 
             <div class="stat-card">
-                <h2>🔥 {{ streak }}</h2>
+                <h2>{{ streak }}</h2>
                 <p>Day Streak</p>
             </div>
         </div>
@@ -39,7 +39,12 @@
         <h2>Last 7 Days</h2>
         <ul>
             {% for date, mood in recent_moods %}
-            <li>{{ date }}: {{ mood }}</li>
+            <li>
+                <span>{{ date }}: {{ mood }}</span>
+                <form method="POST" action="/delete/{{ date }}" style="display: inline;">
+                    <button type="submit" class="delete-btn-stats">Delete</button>
+                </form>
+            </li>
             {% endfor %}
         </ul>
     </div>

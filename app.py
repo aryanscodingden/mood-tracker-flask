@@ -103,6 +103,14 @@ def calendar():
                              first_day_weekday=first_day_weekday,
                              num_days=num_days)
 
+@app.route("/delete/<date>", methods=["POST"])
+def delete(date):
+    init_db()
+    with get_db() as db:
+        db.execute("DELETE FROM moods WHERE date = ?", (date,))
+        db.commit()
+    return redirect('/')
+
 @app.route("/stats")
 def stats():
     init_db()
